@@ -13,6 +13,7 @@ namespace Part_8_hangman_lite
         {
             Random generator = new Random();
             Word(generator.Next(1, 7));
+            //Use word3 to make a random number to choose word2 so you can put that into the answer List.
         }
         public static void Word(int word1)
         {
