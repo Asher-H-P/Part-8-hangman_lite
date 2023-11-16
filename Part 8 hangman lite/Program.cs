@@ -36,14 +36,61 @@ namespace Part_8_hangman_lite
                 Console.WriteLine($"You have {3 - incorrect} guesses left");
                 Console.Write("Please input your guess: ");
                 string guess = Console.ReadLine().ToUpper();
-                if (word.Contains(guess))
+
+                //2+
+                if (guess.Count() > 1)
                 {
-                    Console.WriteLine("Yep");
+                    Console.WriteLine("You're only allowed to input one letter.");
                 }
-                else if (!word.Contains(guess))
+                //2+
+                
+                //Numbers
+                else if (guess.Contains("1") || guess.Contains("2") || guess.Contains("3") || guess.Contains("4") || guess.Contains("5") || guess.Contains("6") || guess.Contains("7") || guess.Contains("8") || guess.Contains("9") || guess.Contains("0"))
                 {
-                    Console.WriteLine("Nope");
+                    Console.WriteLine("You're only allowed to input letters.");
                 }
+                //Numbers
+
+                //1
+                else if (guess.Count() == 1)
+                {
+                    //Right
+                    if (word.Contains(guess))
+                    {
+                        Console.WriteLine("Yep");
+                        Console.WriteLine(word.IndexOf(guess));
+                        displayWord.Remove(word.IndexOf(guess));
+
+                    }
+                    //Right
+
+                    //Wrong
+                    else if (!word.Contains(guess))
+                    {
+                        Console.WriteLine("Nope");
+                        if (lettersGuessed.Contains(guess))
+                        {
+                            Console.WriteLine("You've already guessed this.");
+                        }
+                        else if (!lettersGuessed.Contains(guess))
+                        {
+                            lettersGuessed = lettersGuessed + guess;
+                            incorrect++;
+                            if (incorrect == 3)
+                            {
+                                Console.WriteLine(lettersGuessed);
+                                Hung(incorrect);
+                                Console.WriteLine("You lose!");
+                                done = true;
+                                Console.Beep(750, 200);
+                                Console.Beep(500, 200);
+                                Console.Beep(250, 200);
+                            }
+                        }
+                    }
+                    //Wrong
+                }
+                //1
             }
         }
         public static void Hung(int hung)
