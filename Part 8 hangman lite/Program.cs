@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace Part_8_hangman_lite
     {
         public static void Main(string[] args)
         {
-            Random generator = new Random();
             Console.WriteLine("Welcome to hangman lite.");
             Console.WriteLine("Here are the rules:");
             Console.WriteLine("1. Try to guess the letters in the mystery word.");
@@ -19,13 +19,26 @@ namespace Part_8_hangman_lite
             Console.WriteLine("3. Once the man is fully hung, you lose.");
             Console.WriteLine("4. If you get all the letters right before the man dies, you win.");
             Console.WriteLine("Good luck.");
-            Word(generator.Next(1, 7));
+            Word();
         }
-        public static void Word(int word1)
+        public static void Word()
         {
-            string word = "COMPUTER";
-            string displayWord = "________";
+            Random generator = new Random();
+            int rndmWrd = generator.Next(2, 3);
+            string word = "";
+            string displayWord = "";
+            if (rndmWrd == 1)
+            {
+                word = word.Insert(0, "COMPUTER");
+                displayWord = displayWord.Insert(0, "________");
+            }
+            else if (rndmWrd == 2)
+            {
+                word = word.Insert(0, "PRETZELS");
+                displayWord = displayWord.Insert(0, "________");
+            }
             string lettersGuessed = "";
+            string rightGuesses = "";
             int incorrect = 0;
             bool done = false;
             while (!done)
@@ -58,9 +71,25 @@ namespace Part_8_hangman_lite
                     if (word.Contains(guess))
                     {
                         Console.WriteLine("Yep");
-                        Console.WriteLine(word.IndexOf(guess));
-                        displayWord.Remove(word.IndexOf(guess));
-
+                        if (rightGuesses.Contains(guess))
+                        {
+                            Console.WriteLine("You've already got this letter.");
+                        }
+                        else if (!rightGuesses.Contains(guess))
+                        {
+                            rightGuesses = rightGuesses + guess;
+                            foreach (guess in displayWord)
+                            {
+                                displayWord = displayWord.Insert(word.IndexOf(guess), guess);
+                                displayWord = displayWord.Remove((word.IndexOf(guess) + 1), 1);
+                            }
+                            if (displayWord == word)
+                            {
+                                Console.WriteLine(displayWord);
+                                Console.WriteLine("You win!");
+                                done = true;
+                            }
+                        }
                     }
                     //Right
 
