@@ -24,18 +24,58 @@ namespace Part_8_hangman_lite
         public static void Word()
         {
             Random generator = new Random();
-            int rndmWrd = generator.Next(2, 3);
+            int rndmWrd = generator.Next(1, 11);
             string word = "";
             string displayWord = "";
             if (rndmWrd == 1)
             {
-                word = word.Insert(0, "COMPUTER");
-                displayWord = displayWord.Insert(0, "________");
+                word = word.Insert(0, "MARIO");
+                displayWord = displayWord.Insert(0, "_____");
             }
             else if (rndmWrd == 2)
             {
-                word = word.Insert(0, "PRETZELS");
-                displayWord = displayWord.Insert(0, "________");
+                word = word.Insert(0, "KIRBY");
+                displayWord = displayWord.Insert(0, "_____");
+            }
+            else if (rndmWrd == 3)
+            {
+                word = word.Insert(0, "LINK");
+                displayWord = displayWord.Insert(0, "____");
+            }
+            else if (rndmWrd == 4)
+            {
+                word = word.Insert(0, "BOWSER");
+                displayWord = displayWord.Insert(0, "______");
+            }
+            else if (rndmWrd == 5)
+            {
+                word = word.Insert(0, "YOSHI");
+                displayWord = displayWord.Insert(0, "_____");
+            }
+            else if (rndmWrd == 6)
+            {
+                word = word.Insert(0, "SHULK");
+                displayWord = displayWord.Insert(0, "_____");
+            }
+            else if (rndmWrd == 7)
+            {
+                word = word.Insert(0, "FALCO");
+                displayWord = displayWord.Insert(0, "_____");
+            }
+            else if (rndmWrd == 8)
+            {
+                word = word.Insert(0, "ZELDA");
+                displayWord = displayWord.Insert(0, "_____");
+            }
+            else if (rndmWrd == 9)
+            {
+                word = word.Insert(0, "PIKACHU");
+                displayWord = displayWord.Insert(0, "_______");
+            }
+            else if (rndmWrd == 10)
+            {
+                word = word.Insert(0, "OLIMAR");
+                displayWord = displayWord.Insert(0, "______");
             }
             string lettersGuessed = "";
             string rightGuesses = "";
@@ -78,15 +118,15 @@ namespace Part_8_hangman_lite
                         else if (!rightGuesses.Contains(guess))
                         {
                             rightGuesses = rightGuesses + guess;
-                            foreach (guess in displayWord)
-                            {
-                                displayWord = displayWord.Insert(word.IndexOf(guess), guess);
-                                displayWord = displayWord.Remove((word.IndexOf(guess) + 1), 1);
-                            }
+                            displayWord = displayWord.Insert(word.IndexOf(guess), guess);
+                            displayWord = displayWord.Remove((word.IndexOf(guess) + 1), 1);
                             if (displayWord == word)
                             {
                                 Console.WriteLine(displayWord);
                                 Console.WriteLine("You win!");
+                                Console.Beep(500, 200);
+                                Console.Beep(1000, 200);
+                                Console.Beep(1500, 200);
                                 done = true;
                             }
                         }
@@ -103,7 +143,7 @@ namespace Part_8_hangman_lite
                         }
                         else if (!lettersGuessed.Contains(guess))
                         {
-                            lettersGuessed = lettersGuessed + guess;
+                            lettersGuessed = lettersGuessed + guess + " ";
                             incorrect++;
                             if (incorrect == 3)
                             {
@@ -111,9 +151,9 @@ namespace Part_8_hangman_lite
                                 Hung(incorrect);
                                 Console.WriteLine("You lose!");
                                 done = true;
+                                Console.Beep(1000, 200);
                                 Console.Beep(750, 200);
                                 Console.Beep(500, 200);
-                                Console.Beep(250, 200);
                             }
                         }
                     }
